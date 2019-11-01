@@ -4,7 +4,6 @@
 
 .logo {
   text-align: left;
-  min-height: 40vh;
 
 }
 
@@ -28,4 +27,18 @@
 }
 .postTitle{
   text-align: left;
+}
+.left-alight {
+  text-align: left;
+}
+
+.editIcon{
+  width: 40px;
+  height: 40px;
+  
+}
+.error{
+  color:red;  
+  font-weight: bold;
+
 }
