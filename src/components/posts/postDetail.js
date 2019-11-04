@@ -13,7 +13,9 @@ export class PostDetail extends Component {
     super(props);
     this.state = {
       id: props.match.params.id,
-      post: {}
+      post: {},
+      isError: false,
+      errorMessage: ""
     };
   }
 
@@ -23,17 +25,31 @@ export class PostDetail extends Component {
 
   getPost = () => {
     axios
-      .get(BASE_URL + `/posts/${this.state.id}`)
+      .get(BASE_URL + `/psts/${this.state.id}`)
       .then(response => {
         this.setState({
           post: response.data
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        this.setState({
+          isError: true,
+          errorMessage: "Something went wrong with Post Detail API"
+        });
+        console.log(error);
+      });
   };
 
   render() {
-    const { title, body } = this.state.post;
+    const { title, body, isError, errorMessage } = this.state.post;
+
+    if (isError) {
+      return (
+        <div>
+          <h3>{errorMessage}</h3>
+        </div>
+      );
+    }
     return (
       <Container id="modified-container">
         <Row>
