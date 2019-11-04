@@ -7,6 +7,7 @@ import { Container, Row, Button, Card } from "react-bootstrap";
 import postBg from "../../images/post-bg.jpg";
 
 import Constants, { BASE_URL } from "../../constants/constants";
+import LikeButton from "./LikeButton";
 
 export class PostDetail extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ export class PostDetail extends Component {
 
   getPost = () => {
     axios
-      .get(BASE_URL + `/psts/${this.state.id}`)
+      .get(BASE_URL + `/posts/${this.state.id}`)
       .then(response => {
         this.setState({
           post: response.data
@@ -41,7 +42,7 @@ export class PostDetail extends Component {
   };
 
   render() {
-    const { title, body, isError, errorMessage } = this.state.post;
+    const { id, title, body, isError, errorMessage } = this.state.post;
 
     if (isError) {
       return (
@@ -60,7 +61,14 @@ export class PostDetail extends Component {
             </Card.Title>
           </Card>
         </Row>
+        <br />
         <Row>{body}</Row>
+        <br />
+
+        <Row>
+          {" "}
+          <LikeButton postID={this.state.id} />
+        </Row>
       </Container>
     );
   }
