@@ -9,12 +9,12 @@ import rootReducer from "./reducers";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import rootSaga from './sagas'
 
-//const sagaMiddleWare = createSagaMiddleware();
-//const store = createStore(rootReducer, applyMiddleware(sagaMiddleWare));
-const store = createStore(rootReducer);
+const sagaMiddleWare = createSagaMiddleware();
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleWare));
 
-//sagaMiddleWare.run(rootSaga);
+sagaMiddleWare.run(rootSaga);
 
 export default store;
 
