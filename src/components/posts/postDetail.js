@@ -8,6 +8,7 @@ import postBg from "../../images/post-bg.jpg";
 
 import Constants, { BASE_URL } from "../../constants/constants";
 import LikeButton from "./LikeButton";
+import CommentForm from "./commentForm";
 
 export class PostDetail extends Component {
   constructor(props) {
@@ -68,6 +69,17 @@ export class PostDetail extends Component {
         <Row>
           {" "}
           <LikeButton postID={this.state.id} />
+        </Row>
+        <br />
+        <Row>
+          {" "}
+          <h4>Comments</h4>
+        </Row>
+        <Row>
+          <CommentForm />
+        </Row>
+        <Row>
+          <p>Comment Listing</p>
         </Row>
       </Container>
     );
