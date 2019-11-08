@@ -10,7 +10,7 @@ import {
   DELETE_COMMENT_FAILUR
 } from "../constants/actionTypes";
 
- const getCommentsRequest = () => ({ type: GET_COMMENTS_REQUEST });
+ const getCommentsRequest = (postId) => ({ type: GET_COMMENTS_REQUEST });
 
  const getCommentsSuccess = comments => ({
   type: GET_COMMENTS_SUCCESS,

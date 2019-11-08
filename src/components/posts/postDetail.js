@@ -9,6 +9,7 @@ import postBg from "../../images/post-bg.jpg";
 import Constants, { BASE_URL } from "../../constants/constants";
 import LikeButton from "./LikeButton";
 import CommentForm from "./commentForm";
+import CommentsList from './commentListing'
 
 export class PostDetail extends Component {
   constructor(props) {
@@ -79,7 +80,7 @@ export class PostDetail extends Component {
           <CommentForm />
         </Row>
         <Row>
-          <p>Comment Listing</p>
+          <CommentsList/>
         </Row>
       </Container>
     );
