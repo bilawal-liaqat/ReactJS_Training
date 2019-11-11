@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {connect} from 'react-redux'
 import { Form, Col, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { actions } from "../../actions";
 
 export class CommentForm extends Component {
   constructor(props) {
@@ -20,6 +21,8 @@ export class CommentForm extends Component {
   };
 
   handleSubmit = event => {
+    console.log("handleSubmit" , this.state.id)
+
     this.props.addComment(this.state.id, "Steve", this.state.message);
     this.setState({
       name: "",
@@ -31,7 +34,7 @@ export class CommentForm extends Component {
   render() {
     return (
       <Col md={9}>
-        <Form>
+        <Form onSubmit = {this.handleSubmit}>
           <Form.Control
             as="textarea"
             rows="2"
@@ -48,19 +51,19 @@ export class CommentForm extends Component {
   }
 }
 
-// CommentForm.prototype = {
-//     postId: PropTypes.string.isRequired
-// }
+CommentForm.propTypes = {
+    postId: PropTypes.string.isRequired
+};
 
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         addComment: (postId, name, message) => {
-//           dispatch(addComment((postId, name, message)))
-//         }
-//       }
+const mapDispatchToProps = dispatch => {
+    return {
+        addComment: (postId, name, message) => {
+          dispatch(actions.addCommentRequest(postId , name, message))
+        }
+      }
 
-// }
+}
 
 
-export default connect(null, null)(CommentForm);
+export default connect(null, mapDispatchToProps)(CommentForm);

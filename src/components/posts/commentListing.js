@@ -3,6 +3,7 @@ import { Media, ListGroup } from "react-bootstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { actions } from "../../actions";
+import profileImage from '../../images/profileImage.jpg'
 
 export class CommentListing extends Component {
   constructor(props) {
@@ -19,7 +20,18 @@ export class CommentListing extends Component {
   componentDidMount() {
     this.getComments();
   }
-
+  getFormattedDate = date => {
+    let DATE_OPTIONS = {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    };
+    let commentDate = new Date(date * 1000);
+    let formattedDate = commentDate
+      .toLocaleDateString("en-GB", DATE_OPTIONS)
+      .toString();
+    return formattedDate;
+  };
   render() {
     return (
       <ListGroup>
@@ -27,7 +39,7 @@ export class CommentListing extends Component {
           <div key={comment.id}>
             <Media as="li">
               <img
-              
+                src = {profileImage}
                 className="mr-3 roundedCircle"
                 alt="user profile"
                 width={64}

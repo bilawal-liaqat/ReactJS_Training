@@ -29,3 +29,17 @@ export function* getCommentSaga(){
         }
     }
 }
+
+export function* postCommentSaga() {
+    while (true) {
+      try {
+        const { payload } = yield take(ADD_COMMENT_REQUEST);
+        const { data } = yield call(API.submitComment, payload);
+        console.log(postCommentSaga , data)
+        yield put(actions.addCommentSuccess({ data }));
+      } catch (error) {
+        yield put(actions.addCommentFailure({ error: error }));
+      }
+    }
+  }
+  

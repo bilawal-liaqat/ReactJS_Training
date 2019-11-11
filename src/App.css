@@ -42,3 +42,22 @@
   font-weight: bold;
 
 }
+
+.CommentUser {
+  margin: 0;
+}
+.CommentDate {
+  color: lightgray;
+  font-size: small;
+  margin: 0;
+}
+.CommentMessage {
+  margin: 0;
+}
+.MockLink {
+  color: blue;
+  cursor: pointer;
+}
+.Link {
+  cursor: pointer;
+}

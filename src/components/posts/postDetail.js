@@ -77,10 +77,10 @@ export class PostDetail extends Component {
           <h4>Comments</h4>
         </Row>
         <Row>
-          <CommentForm />
+          <CommentForm postId={this.state.id}/>
         </Row>
         <Row>
-          <CommentsList/>
+          <CommentsList postId={this.state.id}/>
         </Row>
       </Container>
     );

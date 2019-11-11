@@ -21,15 +21,18 @@ const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
     // Post New Comment
     case ADD_COMMENT_REQUEST:
+        console.log("ADD_COMMENT_REQUEST" , action.payload.postId)
       return {
         ...state,
-        id: action.payload.postId,
+        id: action.payload.id,
         message: action.payload.message,
         name: action.payload.name,
         loading: true
       };
 
     case ADD_COMMENT_SUCCESS:
+        console.log("ADD_COMMENT_SUCCESS" ,action.payload.data)
+
       return {
         ...state,
         loading: false,
@@ -45,6 +48,7 @@ const commentsReducer = (state = initialState, action) => {
       };
     // Get all Comments
     case GET_COMMENTS_REQUEST:
+      console.log("GET_COMMENTS_REQUEST" , action.payload.postId)
       return {
         ...state,
         id: action.payload.postId,
