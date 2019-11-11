@@ -30,6 +30,8 @@ const API = {
 
   // Delete a comment of a post
   deleteComment: payload => {
+    console.log("deleteComment" , payload.postId , payload.commentId)
+
     return axiosInstance.delete(
       `/posts/${payload.postId}/comments/${payload.commentId}`
     );

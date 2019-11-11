@@ -42,4 +42,18 @@ export function* postCommentSaga() {
       }
     }
   }
+  export function* deleteCommentSaga() {
+    while (true) {
+      try {
+        const { payload } = yield take(DELETE_COMMENT_REQUEST);
+        console.log("deleteCommentSaga" ,payload)
+
+        yield call(API.deleteComment, payload);
+        yield put(actions.deleteCommentSuccess({}));
   
+        yield put(actions.getCommentsRequest(payload.postId));
+      } catch (error) {
+        yield put(actions.deleteCommentFailure({ error: error }));
+      }
+    }
+  }

@@ -7,7 +7,7 @@ import {
   GET_COMMENTS_FAILURE,
   DELETE_COMMENT_REQUEST,
   DELETE_COMMENT_SUCCESS,
-  DELETE_COMMENT_FAILUR
+  DELETE_COMMENT_FAILURE
 } from "../constants/actionTypes";
 
  const getCommentsRequest = (postId) => ({
@@ -42,6 +42,21 @@ payload: "Error posting comment. Try again later!" + error
 
 
 
+const deleteCommentRequest = (postId, commentId) => 
+    ({
+    type: DELETE_COMMENT_REQUEST,
+    payload: {postId , commentId }
+   });
+
+const deleteCommentSuccess = comment => ({
+type: DELETE_COMMENT_SUCCESS,
+payload: comment
+});
+const deleteCommentFailure = error => ({
+type: DELETE_COMMENT_FAILURE,
+payload: "Error Deleting comment. Try again later!" + error
+});
+
 
 
 export const actions = {
@@ -50,7 +65,10 @@ export const actions = {
     getCommentsFailure: getCommentsFailure,
     addCommentRequest: addCommentRequest,
     addCommentSuccess: addCommentSuccess,
-    addCommentFailure: addCommentFailure
+    addCommentFailure: addCommentFailure,
+    deleteCommentRequest: deleteCommentRequest,
+    deleteCommentSuccess: deleteCommentSuccess,
+    deleteCommentFailure: deleteCommentFailure
 
   };
   

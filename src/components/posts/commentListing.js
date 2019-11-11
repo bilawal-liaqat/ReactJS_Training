@@ -32,6 +32,11 @@ export class CommentListing extends Component {
       .toString();
     return formattedDate;
   };
+
+  handleDelete = (commentId) => {
+    this.props.deleteComment(this.state.id, commentId );
+
+  }
   render() {
     return (
       <ListGroup>
@@ -81,7 +86,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getComments: (postId) => dispatch(actions.getCommentsRequest(postId))
+    getComments: (postId) => dispatch(actions.getCommentsRequest(postId)),
+    deleteComment: (postId , commentId) => dispatch(actions.deleteCommentRequest(postId , commentId))
   }
 }
 

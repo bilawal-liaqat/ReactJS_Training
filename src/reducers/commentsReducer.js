@@ -72,6 +72,8 @@ const commentsReducer = (state = initialState, action) => {
       };
     // Delete Single Comment
     case DELETE_COMMENT_REQUEST:
+        console.log("DELETE_COMMENT_REQUEST" , action.payload.postId , action.payload.commentId )
+
       return {
         ...state
         // loading: true
