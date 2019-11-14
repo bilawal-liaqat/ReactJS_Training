@@ -45,33 +45,44 @@ export class PostList extends Component {
       console.log(error)});
 };
 
-//  getPosts = () => {
-//   axios
-//     .get(BASE_URL + "/posts?sortBy=createdAt&order=desc")
-//     .then(response => {
-//       this.setState({
-//         posts: response.data
-//       });
-//     })
-//     .catch(error =>{
-//       this.setState({
-//         isError: true,
-//         errorMessage: "Something went wrong with Post Listing API"
-//       })
-//     console.log(error)
-//     }
-//       );
-// };
+
 
   componentDidMount() {
-    //const { getPosts} = this.props;
+    window.removeEventListener('scroll', this.onScroll, true);
     this.props.getPosts( 1,  this.state.searchKeyword, false )
   }
-
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll, true);
+  }
 
   handleSearchSubmit = keyword => {
     console.log(keyword)
+    this.setState({ searchKeyword: keyword });
+    setTimeout(() => {
+      this.props.getPosts(
+         this.state.pageNum,
+         this.state.searchKeyword,
+         true
+      );
+    }, 200);
   }
+
+onScroll = () => {
+  const windowRelativeBottom = document.documentElement.getBoundingClientRect()
+  .bottom;
+
+if (windowRelativeBottom < document.documentElement.clientHeight - 100) {
+  setTimeout(() => {
+    this.props.getPosts(
+      this.state.pageNum,
+      this.state.searchKeyword,
+      true
+   );
+  }, 300);
+}
+}
+
+
 
   render() {
     console.log(" postList render");
