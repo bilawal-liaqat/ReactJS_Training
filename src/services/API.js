@@ -10,6 +10,13 @@ const axiosInstance = axios.create({
 
 const API = {
 
+    // get all posts
+
+getPosts: (pageNum , searchKeyword ) => {
+  return axiosInstance.get(`posts?sortBy=id&page=${pageNum}&limit=12&order=desc&search=${searchKeyword}`);
+},
+
+
   // get all comments of a post
   getComments: postId => {
     return axiosInstance.get(`/posts/${postId}/comments?sortBy=createdAt&order=desc`);

@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux';
 import commentsReducer from './commentsReducer'
+import postsReducer from './postsReducer'
 
 
-export default combineReducers({
-    commentsReducer
-})
+
+
+const rootReducer =combineReducers({commentsReducer, postsReducer})
+export default rootReducer

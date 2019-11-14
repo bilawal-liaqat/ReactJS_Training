@@ -7,7 +7,11 @@ import {
   GET_COMMENTS_FAILURE,
   DELETE_COMMENT_REQUEST,
   DELETE_COMMENT_SUCCESS,
-  DELETE_COMMENT_FAILURE
+  DELETE_COMMENT_FAILURE,
+  GET_POSTS_REQUEST,
+  GET_POSTS_SUCCESS,
+  GET_POSTS_FAILURE,
+  GET_POSTS_CLEAR,
 } from "../constants/actionTypes";
 
  const getCommentsRequest = (postId) => ({
@@ -59,6 +63,23 @@ payload: "Error Deleting comment. Try again later!" + error
 
 
 
+
+const getPostsRequest = (pageNum, searchKeyword , isSearch) => ({
+  type: GET_POSTS_REQUEST,
+  payload: {pageNum, searchKeyword, isSearch}
+ });
+
+const getPostsSuccess = posts => ({
+type: GET_POSTS_SUCCESS,
+payload: posts
+});
+const getPostsFailure = error => ({
+type: GET_POSTS_FAILURE,
+payload: "Error fetching Posts. Try again later!" + error
+});
+
+
+
 export const actions = {
     getCommentsRequest: getCommentsRequest,
     getCommentsSuccess: getCommentsSuccess,
@@ -68,7 +89,9 @@ export const actions = {
     addCommentFailure: addCommentFailure,
     deleteCommentRequest: deleteCommentRequest,
     deleteCommentSuccess: deleteCommentSuccess,
-    deleteCommentFailure: deleteCommentFailure
-
+    deleteCommentFailure: deleteCommentFailure,
+    getPostsRequest: getPostsRequest,
+    getPostsSuccess: getPostsSuccess,
+    getPostsFailure: getPostsFailure,
   };
   

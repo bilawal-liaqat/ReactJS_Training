@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 
 import { Table, Container ,Alert} from "react-bootstrap";
 import axios from "axios";
+import {connect} from 'react-redux'
 
 import Constants, { BASE_URL } from "../../constants/constants";
 import PostListAddons from "./postListAddons";
+import { actions } from "../../actions";
 
 export class PostList extends Component {
   constructor(props) {
@@ -13,7 +15,10 @@ export class PostList extends Component {
     this.state = {
       posts: [],
       isError: false,
-      errorMessage: ''
+      errorMessage: '',
+      isSearch: false,
+      searchKeyword: '',
+      pageNum: 1
     };
   }
 
@@ -39,36 +44,45 @@ export class PostList extends Component {
       })
       console.log(error)});
 };
- getPosts = () => {
-  axios
-    .get(BASE_URL + "/posts?sortBy=createdAt&order=desc")
-    .then(response => {
-      this.setState({
-        posts: response.data
-      });
-    })
-    .catch(error =>{
-      this.setState({
-        isError: true,
-        errorMessage: "Something went wrong with Post Listing API"
-      })
-    console.log(error)
-    }
-      );
-};
+
+//  getPosts = () => {
+//   axios
+//     .get(BASE_URL + "/posts?sortBy=createdAt&order=desc")
+//     .then(response => {
+//       this.setState({
+//         posts: response.data
+//       });
+//     })
+//     .catch(error =>{
+//       this.setState({
+//         isError: true,
+//         errorMessage: "Something went wrong with Post Listing API"
+//       })
+//     console.log(error)
+//     }
+//       );
+// };
 
   componentDidMount() {
-    this.getPosts();
+    //const { getPosts} = this.props;
+    this.props.getPosts( 1,  this.state.searchKeyword, false )
+  }
+
+
+  handleSearchSubmit = keyword => {
+    console.log(keyword)
   }
 
   render() {
+    console.log(" postList render");
+
     const {isError , errorMessage} = this.state
     if (isError) {
       return <Alert variant="danger"> {errorMessage} </Alert>;
     }
     return (
       <div>
-        <PostListAddons />
+        <PostListAddons handleSubmit = {this.handleSearchSubmit}/>
         <Container fluid id="modified-container">
           <Table responsive striped hover size="sm">
             <thead className="thead-dark">
@@ -82,8 +96,11 @@ export class PostList extends Component {
             </thead>
 
             <tbody>
-              {this.state.posts.map(post => (
-                <tr>
+              {console.log(this.props.posts)
+              }
+              {this.props.posts.map(post => (
+                
+                <tr id = {post.id}>
                   <td>{post.id}</td>
                   <td>
                     <Link to={`/post/${post.id}`}>{post.title}</Link>
@@ -109,4 +126,21 @@ export class PostList extends Component {
 }
 
 
-export default PostList;
+const mapStateToProps = (state) => {
+  console.log("mapStateToProps", state);
+
+  return {
+    posts: state.postsReducer.posts,
+    num: state.postsReducer.pageNum,
+    end: state.postsReducer.end,
+    apiRestrict: state.postsReducer.apiRestrict
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+  getPosts: (pageNum , searchKeyword , isSearch) => dispatch(actions.getPostsRequest(pageNum, searchKeyword, isSearch))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);
